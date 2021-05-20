@@ -4,7 +4,8 @@ var router = express.Router();
 var uid2 = require('uid2')
 var bcrypt = require('bcrypt');
 
-var userModel = require('../models/users')
+var userModel = require('../models/users'); // Import du modèle Users
+var placesModel = require('../models/places')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -53,11 +54,14 @@ router.post('/sign-up', async function(req,res,next){
       token = saveUser.token
     }
   }
+
+
   
 
   res.json({result, saveUser, error, token})
 })
 
+<<<<<<< HEAD
 //route connexion 
 
 router.post('/sign-in', async function(req,res,next){
@@ -96,6 +100,23 @@ router.post('/sign-in', async function(req,res,next){
 
   res.json({result, user, error, token})
 
+=======
+// USERSSCREEN ROUTE - SHOW ALL USERS
+router.get('/users', async function(req, res, next) {
+  
+  var usersData = await userModel.find() ; // Je récupère TOUS les utilisateurs dans la BDD
+
+  res.json({usersData})
+
+})
+
+// get Pins to display to Map
+router.get('/places', async function(req, res, next) {
+
+  var PinsData = await placesModel.find()
+
+  res.json({PinsData})
+>>>>>>> 5fb94d9f7a1960e525141addef950316904838ed
 
 })
 
