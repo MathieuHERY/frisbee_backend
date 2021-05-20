@@ -5,6 +5,7 @@ var uid2 = require('uid2')
 var bcrypt = require('bcrypt');
 
 var userModel = require('../models/users'); // Import du modèle Users
+var placesModel = require('../models/places')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -77,5 +78,13 @@ router.get('/users', async function(req, res, next) {
 
 })
 
+// get Pins to display to Map
+router.get('/places', async function(req, res, next) {
+
+  var PinsData = await placesModel.find()
+
+  res.json({PinsData})
+
+})
 
 module.exports = router;
