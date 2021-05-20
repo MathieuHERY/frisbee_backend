@@ -61,7 +61,6 @@ router.post('/sign-up', async function(req,res,next){
   res.json({result, saveUser, error, token})
 })
 
-<<<<<<< HEAD
 //route connexion 
 
 router.post('/sign-in', async function(req,res,next){
@@ -96,11 +95,12 @@ router.post('/sign-in', async function(req,res,next){
       error.push('email incorrect')
     }
   }
-  
+
 
   res.json({result, user, error, token})
+})
 
-=======
+
 // USERSSCREEN ROUTE - SHOW ALL USERS
 router.get('/users', async function(req, res, next) {
   
@@ -116,7 +116,6 @@ router.get('/places', async function(req, res, next) {
   var PinsData = await placesModel.find()
 
   res.json({PinsData})
->>>>>>> 5fb94d9f7a1960e525141addef950316904838ed
 
 })
 
