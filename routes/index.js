@@ -119,4 +119,20 @@ router.get('/places', async function(req, res, next) {
 
 })
 
+//new Pins
+router.post("/newplace", async function (req, res, next) {
+  var newPlace = new placesModel({
+    name: req.body.name,
+    adress: req.body.adress,
+    sport: req.body.sport,
+    description: req.body.description,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
+    picture: req.body.picture,
+  })
+
+  savePlace = await newPlace.save()
+  res.json({savePlace})
+})
+
 module.exports = router;
