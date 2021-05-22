@@ -59,7 +59,6 @@ router.post('/sign-up', async function(req,res,next){
   res.json({result, saveUser, error, token})
 })
 
-
 //route connexion 
 
 router.post('/sign-in', async function(req,res,next){
@@ -94,11 +93,11 @@ router.post('/sign-in', async function(req,res,next){
       error.push('email incorrect')
     }
   }
-  
+
 
   res.json({result, user, error, token})
-
 })
+
 
 // USER ROUTE - SHOW ALL USERS
 // Je récupère TOUS les utilisateurs dans la BDD que je vais filtrer en front
