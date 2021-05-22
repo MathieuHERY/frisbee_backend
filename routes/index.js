@@ -178,7 +178,7 @@ router.post('/my-location', async function(req, res, next) {
 router.post("/newplace", async function (req, res, next) {
   var newPlace = new placesModel({
     name: req.body.name,
-    adress: req.body.adress,
+    address: req.body.address,
     sport: req.body.sport,
     description: req.body.description,
     latitude: req.body.latitude,
@@ -187,7 +187,7 @@ router.post("/newplace", async function (req, res, next) {
   })
 
   savePlace = await newPlace.save()
-  res.json({savePlace})
+  res.json({result:true})
 })
 
 module.exports = router;
