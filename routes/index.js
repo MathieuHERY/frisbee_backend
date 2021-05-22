@@ -1,8 +1,18 @@
 var express = require('express');
 var router = express.Router();
-
+var request = require('sync-request');
 var uid2 = require('uid2')
+var uniqid = require('uniqid');
+var fs = require('fs');
 var bcrypt = require('bcrypt');
+var cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_APIKEY,
+  api_secret: process.env.CLOUDINARY_APISECRET
+ });
+
 
 var userModel = require('../models/users'); // Import du modèle Users
 const { updateOne } = require('../models/users');
@@ -13,7 +23,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-
 // route inscription
 router.post('/sign-up', async function(req,res,next){
 
@@ -22,9 +31,8 @@ router.post('/sign-up', async function(req,res,next){
   var saveUser = null
   var token = null
 
-
   const data = await userModel.findOne({
-    email: req.body.Email
+    Email: req.body.Email
   })
 
   if(data != null){
@@ -45,6 +53,9 @@ router.post('/sign-up', async function(req,res,next){
       SportsHabits: req.body.SportsHabits,
       SportsHours: req.body.SportsHours,
       UserPicture: req.body.UserPicture,
+      UserLatitude: req.body.UserLatitude,
+      UserLongitude: req.body.UserLongitude
+
     })
   
     saveUser = await newUser.save()
@@ -58,6 +69,31 @@ router.post('/sign-up', async function(req,res,next){
 
   res.json({result, saveUser, error, token})
 })
+
+/* POST Upload picture received from app. */
+
+router.post('/upload-user-picture', async (req, res, next) => {
+
+  console.log(req.files.picture)
+  var imagePath = `./tmp/userPhoto_${uniqid()}.jpeg`
+
+  var resultCopy = await req.files.picture.mv(imagePath)
+
+  if(!resultCopy) {
+    
+  var resultCloudinary = await cloudinary.uploader.upload(imagePath,
+      {width: 580, height: 580}
+    );
+
+  res.json({url:resultCloudinary.url,imageSaved:true});
+
+  } else {
+    res.json({imageSaved:false});
+  }
+  fs.unlinkSync(imagePath);
+}
+)
+
 
 //route connexion 
 
@@ -137,5 +173,21 @@ router.post('/my-location', async function(req, res, next) {
 })
 
 
+
+//new Pins
+router.post("/newplace", async function (req, res, next) {
+  var newPlace = new placesModel({
+    name: req.body.name,
+    adress: req.body.adress,
+    sport: req.body.sport,
+    description: req.body.description,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
+    picture: req.body.picture,
+  })
+
+  savePlace = await newPlace.save()
+  res.json({savePlace})
+})
 
 module.exports = router;
