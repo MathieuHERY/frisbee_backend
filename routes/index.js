@@ -99,10 +99,10 @@ router.post('/upload-user-picture', async (req, res, next) => {
 
 router.post('/sign-in', async function(req,res,next){
 
-  var result = false
-  var user = null
-  var error = []
-  var token = null
+  var result = false;
+  var user = null;
+  var error = [];
+  var token = null;
   
   if(req.body.Email == ''
   || req.body.Password == ''
