@@ -16,6 +16,7 @@ cloudinary.config({
 
 var userModel = require('../models/users'); // Import du modèle Users
 var placesModel = require('../models/places')
+var frisbeeModel = require('../models/frisbee')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -166,6 +167,13 @@ router.post("/newplace", async function (req, res, next) {
 
   savePlace = await newPlace.save()
   res.json({result:true})
+})
+
+//get all Frisbee
+router.get("/frisbee", async function (req, res, next) {
+
+  var frisbeeData = await frisbeeModel.find()
+  res.json({frisbeeData})
 })
 
 module.exports = router;
