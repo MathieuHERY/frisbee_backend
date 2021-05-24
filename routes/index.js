@@ -15,6 +15,7 @@ cloudinary.config({
 
 
 var userModel = require('../models/users'); // Import du modèle Users
+const { updateOne } = require('../models/users');
 var placesModel = require('../models/places')
 var frisbeeModel = require('../models/frisbee')
 
@@ -99,10 +100,10 @@ router.post('/upload-user-picture', async (req, res, next) => {
 
 router.post('/sign-in', async function(req,res,next){
 
-  var result = false
-  var user = null
-  var error = []
-  var token = null
+  var result = false;
+  var user = null;
+  var error = [];
+  var token = null;
   
   if(req.body.Email == ''
   || req.body.Password == ''
@@ -135,10 +136,12 @@ router.post('/sign-in', async function(req,res,next){
 })
 
 
-// USERSSCREEN ROUTE - SHOW ALL USERS
-router.get('/users', async function(req, res, next) {
+// USER ROUTE - SHOW ALL USERS
+// Je récupère TOUS les utilisateurs dans la BDD que je vais filtrer en front
+router.get('/users-filtered', async function(req, res, next) {
   
-  var usersData = await userModel.find() ; // Je récupère TOUS les utilisateurs dans la BDD
+  var usersData = await userModel.find() ; 
+  // console.log(usersData, 'je récupère tous les users côté back')
 
   res.json({usersData})
 
@@ -152,6 +155,8 @@ router.get('/places', async function(req, res, next) {
   res.json({PinsData})
 
 })
+
+
 
 //new Pins
 router.post("/newplace", async function (req, res, next) {
