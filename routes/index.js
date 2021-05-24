@@ -137,10 +137,10 @@ router.post('/sign-in', async function(req,res,next){
 
 // USER ROUTE - SHOW ALL USERS
 // Je récupère TOUS les utilisateurs dans la BDD que je vais filtrer en front
-router.get('/users', async function(req, res, next) {
+router.get('/users-filtered', async function(req, res, next) {
   
   var usersData = await userModel.find() ; 
-  console.log(usersData, 'je récupère tous les users côté back')
+  // console.log(usersData, 'je récupère tous les users côté back')
 
   res.json({usersData})
 
@@ -152,23 +152,6 @@ router.get('/places', async function(req, res, next) {
   var PinsData = await placesModel.find()
 
   res.json({PinsData})
-
-})
-
-// MY LOCATION ROUTE - GET MY OWN LATITUDE AND LONGITUDE
-// if myLocation est à true : faire un update sur la collection User avec mon ID (dans MongoDB) et mettre à jour la latitude et longitude
-// else ne fait rien
-router.post('/my-location', async function(req, res, next) {
-  var myLocation = await userModel.findById(token);
-
-  if (myLocation) {
-    const currentLocation = userModel.updateOne({UserLatitude: '', UserLongitude: ''}) // besoin de dynamiser la latitude et la longitude
-    
-    res.json({ result: true, currentLocation: currentLocation })
-
-  } else {
-    res.json({ result: false })
-  }
 
 })
 
