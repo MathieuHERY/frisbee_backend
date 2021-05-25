@@ -1,4 +1,0 @@
-MONGODBURL = mongodb+srv://admin:admin@cluster0.ubvl7.mongodb.net/frisbee?retryWrites=true&w=majority
-CLOUDINARY_NAME = dtp8ma75b
-CLOUDINARY_APIKEY = 761836515852385
-CLOUDINARY_APISECRET = 02qaAealil73a2CcpgbiqNJbdhs
