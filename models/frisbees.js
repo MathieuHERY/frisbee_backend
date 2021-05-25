@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const frisbeeSchema = mongoose.Schema({
+const frisbeesSchema = mongoose.Schema({
    CreatedDate:Date,
    userCreator: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
    userInvited: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
@@ -11,6 +11,6 @@ const frisbeeSchema = mongoose.Schema({
    HoursMeeting: String,
 })
 
-const frisbeeModel = mongoose.model('frisbee', frisbeeSchema)
+const frisbeesModel = mongoose.model('frisbees', frisbeesSchema)
 
-module.exports = frisbeeModel
+module.exports = frisbeesModel

@@ -15,9 +15,11 @@ cloudinary.config({
 
 
 var userModel = require('../models/users'); // Import du modèle Users
-const { updateOne } = require('../models/users');
+const { updateOne, populate } = require('../models/users');
 var placesModel = require('../models/places')
-var frisbeeModel = require('../models/frisbee')
+var frisbeesModel = require('../models/frisbees');
+const { exec } = require('child_process');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -174,11 +176,12 @@ router.post("/newplace", async function (req, res, next) {
   res.json({result:true})
 })
 
-//get all Frisbee
-router.get("/frisbee", async function (req, res, next) {
+//get all Frisbee where user invited
+router.get("/allfrisbees", async function (req, res, next) {
 
-  var frisbeeData = await frisbeeModel.find()
-  res.json({frisbeeData})
+  var frisbees = await frisbeesModel.find().populate('userCreator').populate('userInvited').exec();
+
+  res.json({frisbees})
 })
-
+ 
 module.exports = router;
