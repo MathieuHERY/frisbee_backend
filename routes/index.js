@@ -162,7 +162,6 @@ router.post("/newplace", async function (req, res, next) {
   res.json({result:true})
 })
 
-<<<<<<< HEAD
 
 //infos mon profil login 
 router.get('/user', async function(req, res, next) { 
@@ -177,7 +176,6 @@ router.get('/logout', async (req, res, next) => {
 });
  */
 
-=======
 //get all Frisbee
 router.get("/frisbee", async function (req, res, next) {
 
@@ -185,5 +183,4 @@ router.get("/frisbee", async function (req, res, next) {
   res.json({frisbeeData})
 })
 
->>>>>>> a4d022e66b16df39a124d4c2efd35a0ef953859e
 module.exports = router;
