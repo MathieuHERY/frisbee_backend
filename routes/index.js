@@ -73,8 +73,8 @@ router.post('/sign-up', async function(req,res,next){
   res.json({result, saveUser, error, token})
 })
 
-/* POST Upload picture received from app. */
 
+/* POST Upload picture received from app. */
 router.post('/upload-user-picture', async (req, res, next) => {
 
   console.log(req.files.picture)
@@ -98,8 +98,7 @@ router.post('/upload-user-picture', async (req, res, next) => {
 )
 
 
-//route connexion 
-
+//connexion 
 router.post('/sign-in', async function(req,res,next){
 
   var result = false;
@@ -117,8 +116,6 @@ router.post('/sign-in', async function(req,res,next){
     const user = await userModel.findOne({
       Email: req.body.Email,
     })
-  
-    
     if(user){
       if(bcrypt.compareSync(req.body.Password, user.Password)){
         result = true
@@ -127,7 +124,6 @@ router.post('/sign-in', async function(req,res,next){
         result = false
         error.push('mot de passe incorrect')
       }
-      
     } else {
       error.push('email incorrect')
     }
@@ -139,28 +135,20 @@ router.post('/sign-in', async function(req,res,next){
 
 
 // USER ROUTE - SHOW ALL USERS
-// Je récupère TOUS les utilisateurs dans la BDD que je vais filtrer en front
-router.get('/users-filtered', async function(req, res, next) {
-  
+router.get('/users-filtered', async function(req, res, next) { 
   var usersData = await userModel.find() ; 
-  // console.log(usersData, 'je récupère tous les users côté back')
-
   res.json({usersData})
-
 })
 
 // get Pins to display to Map
 router.get('/places', async function(req, res, next) {
-
   var PinsData = await placesModel.find()
-
   res.json({PinsData})
-
 })
 
 
 
-//new Pins
+//add new Pins
 router.post("/newplace", async function (req, res, next) {
   var newPlace = new placesModel({
     name: req.body.name,
@@ -183,5 +171,18 @@ router.get("/allfrisbees", async function (req, res, next) {
 
   res.json({frisbees})
 })
+
+//infos mon profil login 
+router.get('/user', async function(req, res, next) { 
+  var userData = await userModel.find() ; 
+  res.json({userData})
+})
+
+
+/* // Logout
+router.get('/logout', async (req, res, next) => {
+  req.session.user = null;
+});
+ */
  
 module.exports = router;
