@@ -5,6 +5,7 @@ const frisbeesSchema = mongoose.Schema({
    userCreator: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
    userInvited: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
    Sport: String,
+   Message:String,
    isAccepted:String,
    AddressMeeting: String,
    DateMeeting:Date,

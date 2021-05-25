@@ -164,12 +164,36 @@ router.post("/newplace", async function (req, res, next) {
   res.json({result:true})
 })
 
-//get all Frisbee where user invited
+//get all Frisbee
 router.get("/allfrisbees", async function (req, res, next) {
 
   var frisbees = await frisbeesModel.find().populate('userCreator').populate('userInvited').exec();
 
   res.json({frisbees})
+})
+
+//Accept frisbee
+router.post("/accept-frisbee", async function (req, res, next) {
+
+  var Updatefrisbees = await frisbeesModel.updateOne({_id : req.body._id}, {isAccepted : req.body.isAccepted})
+
+  if (Updatefrisbees) {
+  res.json({result:true})
+  } else {
+    res.json({result:false})
+  }
+})
+
+//Reject frisbee
+router.post("/reject-frisbee", async function (req, res, next) {
+
+  var Updatefrisbees = await frisbeesModel.updateOne({_id : req.body._id}, {isAccepted : req.body.isAccepted})
+
+  if (Updatefrisbees) {
+  res.json({result:true})
+  } else {
+    res.json({result:false})
+  }
 })
 
 //infos mon profil login 
