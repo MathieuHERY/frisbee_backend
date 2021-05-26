@@ -52,7 +52,7 @@ router.post('/sign-up', async function (req, res, next) {
       token: uid2(32),
       Age: req.body.Age,
       Description: req.body.Description,
-      FavoritesSports: req.body.FavoritesSports,
+      FavoritesSports: JSON.parse(req.body.FavoritesSports),
       SportsHabits: req.body.SportsHabits,
       SportsHours: req.body.SportsHours,
       UserPicture: req.body.UserPicture,
@@ -113,7 +113,7 @@ router.post('/sign-in', async function (req, res, next) {
   }
 
   if (error.length == 0) {
-    const user = await userModel.findOne({
+    user = await userModel.findOne({
       Email: req.body.Email,
     })
     if (user) {
@@ -206,14 +206,14 @@ router.get('/user', async function (req, res, next) {
 router.post("/send-frisbee", async function (req, res, next) {
   var newFrisbee = new frisbeesModel({
     CreatedDate: new Date(),
-    userCreator: null,
+    userCreator: req.body.userCreator,
     userInvited: req.body.userInvited,
-    Sport: req.body.sport,
-    Message: req.body.message,
-    isAccepted: req.body.isAccepted,
-    AddressMeeting: req.body.adressMeeting,
-    DateMeeting: req.body.dateMeeting,
-    HoursMeeting: req.body.hoursMeeting,
+    Sport: req.body.Sport,
+    Message: req.body.Message,
+    isAccepted: "null",
+    AddressMeeting: req.body.AddressMeeting,
+    DateMeeting: req.body.DateMeeting,
+    HoursMeeting: req.body.HoursMeeting,
   })
 
   saveFrisbee = await newFrisbee.save()
