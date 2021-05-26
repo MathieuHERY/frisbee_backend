@@ -63,13 +63,12 @@ router.post('/sign-up', async function(req,res,next){
   
     saveUser = await newUser.save()
   
-    
     if(saveUser){
       result = true
       token = saveUser.token
     }
   }
-
+console.log(saveUser)
   res.json({result, saveUser, error, token})
 })
 
