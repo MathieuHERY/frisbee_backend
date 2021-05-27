@@ -18,7 +18,6 @@ var userModel = require('../models/users'); // Import du modèle Users
 const { updateOne, populate } = require('../models/users');
 var placesModel = require('../models/places')
 var frisbeesModel = require('../models/frisbees');
-const { exec } = require('child_process');
 
 
 /* GET home page. */
@@ -194,12 +193,6 @@ router.post("/reject-frisbee", async function (req, res, next) {
   } else {
     res.json({ result: false })
   }
-})
-
-// USER ROUTE - SHOW ALL USERS
-router.get('/user', async function (req, res, next) {
-  var userData = await userModel.find();
-  res.json({ userData })
 })
 
 
