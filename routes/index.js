@@ -38,7 +38,7 @@ router.post('/sign-up', async function (req, res, next) {
   })
 
   if (data != null) {
-    error.push('utilisateur déjà présent')
+    error.push("Aïe ! L'utilisateur déjà existant")
   }
 
   if (error.length == 0) {
@@ -108,7 +108,7 @@ router.post('/sign-in', async function (req, res, next) {
   if (req.body.Email == ''
     || req.body.Password == ''
   ) {
-    error.push('Les champs sont vides')
+    error.push("Aïe ! L'un des champs est vide")
   }
 
   if (error.length == 0) {
@@ -121,10 +121,10 @@ router.post('/sign-in', async function (req, res, next) {
         token = user.token
       } else {
         result = false
-        error.push('mot de passe incorrect')
+        error.push('Aïe ! Mot de passe incorrect')
       }
     } else {
-      error.push('email incorrect')
+      error.push('Aïe ! Email incorrect')
     }
   }
 
