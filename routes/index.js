@@ -15,7 +15,6 @@ cloudinary.config({
 
 
 var userModel = require('../models/users'); // Import du modèle Users
-const { updateOne, populate } = require('../models/users');
 var placesModel = require('../models/places')
 var frisbeesModel = require('../models/frisbees');
 
@@ -76,7 +75,7 @@ router.post('/sign-up', async function (req, res, next) {
 /* POST Upload picture received from app. */
 router.post('/upload-user-picture', async (req, res, next) => {
 
-  console.log(req.files.picture)
+  /* console.log(req.files.picture) */
   var imagePath = `./tmp/userPhoto_${uniqid()}.jpeg`
 
   var resultCopy = await req.files.picture.mv(imagePath)
@@ -129,7 +128,7 @@ router.post('/sign-in', async function (req, res, next) {
   }
 
 
-  res.json({ result, user, error, token })
+  res.json({result, user, error, token })
 })
 
 
@@ -210,7 +209,7 @@ router.post("/send-frisbee", async function (req, res, next) {
   })
 
   saveFrisbee = await newFrisbee.save()
-  res.json({ result: true, saveFrisbee })
+  res.json({ result: true })
 
 })
 
